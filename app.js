@@ -11,8 +11,6 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
 
   $scope.addPost = function() {
 
-    console.log("inside the addPost function, $scope.posts is: ", $scope.posts);
-
     // Prevent against blank title and body entries.. maybe do this at the database / model levels instead? Once rails is set up..
     if(!$scope.title || $scope.title === '') {
       console.log("title was blank");
@@ -66,12 +64,6 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
 app.controller('PostsController', ['$http', '$scope', '$stateParams', 'posts', function($http, $scope, $stateParams, posts){
 
   $scope.post = posts.posts[$stateParams.post_id];
-  console.log("in the PostsController, $scope.post is: ", $scope.post);
-
-  // so we know that posts.posts contains the posts, at least.
-  console.log("in the PostsController, posts.posts is: ", posts.posts);
-
-  console.log("still in PostsController, posts.posts[$stateParams.id] is" , posts.posts[$stateParams.id]);
 
   $scope.addComment = function() {
 
