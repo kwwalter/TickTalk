@@ -5,23 +5,29 @@
     <title>Tick Talk</title>
     <link rel="stylesheet" href="styles.css" charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="angular-ui-router.min.js"></script>
     <script src="app.js"></script>
   </head>
-  <body ng-controller="MainController as mainCtrl">
-    <div ng-repeat="post in mainCtrl.posts | orderBy:'-upvotes'">
-      {{post.title}}, with {{post.upvotes}} votes!
-      <span class="vote" ng-click="mainCtrl.incrementVote(post)"> + </span>
-      <span class="vote" ng-click="mainCtrl.decrementVote(post)"> - </span></br>
-      Body: {{post.body}}</br>
-      <span ng-repeat="tag in post.tags"> {{tag}} </span>
-      <hr>
-    </div>
-    </br>
-    <form ng-submit="mainCtrl.addPost()">
-      <input type="text" ng-model="mainCtrl.title" placeholder="Title of your post" />
-      <input type="textarea" ng-model="mainCtrl.body" placeholder="Body of your post" />
-      <input type="text" ng-model="mainCtrl.tags" placeholder="Tags related to your post" />
-      <input type="submit" value="Post it!" />
-    </form>
+  <body>
+
+    <ui-view></ui-view>
+
+    <script type="text/ng-template" id="/home.html">
+      <div ng-repeat="post in mainCtrl.posts | orderBy:'-upvotes'">
+        {{post.title}}, with {{post.upvotes}} votes!
+        <span class="vote" ng-click="mainCtrl.incrementVote(post)"> + </span>
+        <span class="vote" ng-click="mainCtrl.decrementVote(post)"> - </span></br>
+        Body: {{post.body}}</br>
+        <span ng-repeat="tag in post.tags"> {{tag}} </span>
+        <hr>
+      </div>
+      </br>
+      <form ng-submit="mainCtrl.addPost()">
+        <input type="text" ng-model="mainCtrl.title" placeholder="Title of your post" />
+        <input type="textarea" ng-model="mainCtrl.body" placeholder="Body of your post" />
+        <input type="text" ng-model="mainCtrl.tags" placeholder="Tags related to your post" />
+        <input type="submit" value="Post it!" />
+      </form>
+    </script>
   </body>
 </html>

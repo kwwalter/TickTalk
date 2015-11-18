@@ -1,30 +1,19 @@
 var app = angular.module('TickTalk', []);
 
-app.controller('MainController', ['$http', '$scope', function($http) {
+// Adding ui-router as a dependency, but probably don't have to..
+// angular.module('TickTalk', ['ui.router']);
+
+// main controller for app..
+app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
+  
   var controller = this;
 
   this.test = "testing!";
-  this.posts = [
-    { title: 'post 1',
-      upvotes: 29
-    },
-    { title: 'post 2',
-      upvotes: 7
-    },
-    { title: 'post 3',
-      upvotes: 1
-    },
-    { title: 'post 4',
-      upvotes: 43
-    },
-    { title: 'post 5',
-      upvotes: 15
-    }
-  ];
+  this.posts = posts.posts;
 
   this.addPost = function() {
 
-    // Prevent against blank title and body entries.. maybe do this at the database / model levels instead?
+    // Prevent against blank title and body entries.. maybe do this at the database / model levels instead? Once rails is set up..
     if(!controller.title || controller.title === '') {
       return;
     } else if (!controller.body || controller.body === ''){
@@ -49,5 +38,28 @@ app.controller('MainController', ['$http', '$scope', function($http) {
   this.decrementVote = function(post) {
     post.upvotes -= 1;
   };
+
+}]);
+
+// factory for posts..
+app.factory('posts', [function(){
+
+  var postObj = {
+    posts: []
+  };
+  return postObj;
+
+}]);
+
+// ui-router config stuff..
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+
+  $stateProvider.state('home', {
+    url: '/home',
+    templateURL: '/home.html',
+    controller: 'MainController'
+  });
+
+  $urlRouterProvider.otherwise('home');
 
 }]);
