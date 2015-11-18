@@ -1,44 +1,72 @@
-var app = angular.module('TickTalk', []);
-
-// Adding ui-router as a dependency, but probably don't have to..
-// angular.module('TickTalk', ['ui.router']);
+var app = angular.module('TickTalk', ['ui.router']);
 
 // main controller for app..
 app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
-  
-  var controller = this;
 
-  this.test = "testing!";
-  this.posts = posts.posts;
+  // maybe can't use this with ui-router?
+  // var controller = this;
 
-  this.addPost = function() {
+  // this.test = "testing!";
+  $scope.posts = posts.posts;
+
+  $scope.addPost = function() {
+
+    console.log("inside the addPost function!");
 
     // Prevent against blank title and body entries.. maybe do this at the database / model levels instead? Once rails is set up..
-    if(!controller.title || controller.title === '') {
+    if(!$scope.title || $scope.title === '') {
+      console.log("title was blank");
       return;
-    } else if (!controller.body || controller.body === ''){
+    } else if (!$scope.body || $scope.body === ''){
+      console.log("body was blank");
       return;
     }
 
-    var tagsArray = controller.tags.split(', ');
+    var tagsArray = $scope.tags.split(/, \s?/);
+    console.log("tags array is: ", tagsArray);
 
-    controller.posts.push({
-      title: controller.title,
-      body: controller.body,
+    $scope.posts.push({
+      title: $scope.title,
+      body: $scope.body,
       tags: tagsArray,
-      upvotes: 0
+      rating: 0,
+      comments: [
+        {
+          author: 'Kevin',
+          comment: 'Hella tight brah!',
+          rating: 0
+        },
+        {
+          author: 'Rick',
+          comment: 'Wubba lubba dub dub!',
+          rating: 0
+        },
+        {
+          author: 'Tiny Rick',
+          comment: 'Grass...tastes bad!',
+          rating: 0
+        },
+      ]
     });
-    controller.title = "";
+    $scope.title = "";
+    $scope.body = "";
+    $scope.tags = "";
+
+    // $state.href('/home');
   };
 
-  this.incrementVote = function(post) {
-    post.upvotes += 1;
+  $scope.incrementRating = function(post) {
+    post.rating += 1;
   };
 
-  this.decrementVote = function(post) {
-    post.upvotes -= 1;
+  $scope.decrementRating = function(post) {
+    post.rating -= 1;
   };
 
+}]);
+
+app.controller('PostsController', ['$http', '$scope', '$stateParams', 'posts', function($http, $scope, $stateParams, posts){
+  $scope.post = posts.posts[$stateParams.id]
 }]);
 
 // factory for posts..
@@ -56,8 +84,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
   $stateProvider.state('home', {
     url: '/home',
-    templateURL: '/home.html',
+    templateUrl: '/home.html',
     controller: 'MainController'
+  });
+
+  $stateProvider.state('posts', {
+    url: '/posts/{post_id}',
+    templateUrl: '/posts.html',
+    controller: 'PostsController'
   });
 
   $urlRouterProvider.otherwise('home');
