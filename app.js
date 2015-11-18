@@ -11,7 +11,7 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
 
   $scope.addPost = function() {
 
-    console.log("inside the addPost function!");
+    console.log("inside the addPost function, $scope.posts is: ", $scope.posts);
 
     // Prevent against blank title and body entries.. maybe do this at the database / model levels instead? Once rails is set up..
     if(!$scope.title || $scope.title === '') {
@@ -33,17 +33,17 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
       comments: [
         {
           author: 'Kevin',
-          comment: 'Hella tight brah!',
+          commentBody: 'Hella tight brah!',
           rating: 0
         },
         {
           author: 'Rick',
-          comment: 'Wubba lubba dub dub!',
+          commentBody: 'Wubba lubba dub dub!',
           rating: 0
         },
         {
           author: 'Tiny Rick',
-          comment: 'Grass...tastes bad!',
+          commentBody: 'Grass...tastes bad!',
           rating: 0
         },
       ]
@@ -51,8 +51,6 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
     $scope.title = "";
     $scope.body = "";
     $scope.tags = "";
-
-    // $state.href('/home');
   };
 
   $scope.incrementRating = function(post) {
@@ -66,7 +64,41 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
 }]);
 
 app.controller('PostsController', ['$http', '$scope', '$stateParams', 'posts', function($http, $scope, $stateParams, posts){
-  $scope.post = posts.posts[$stateParams.id]
+
+  $scope.post = posts.posts[$stateParams.post_id];
+  console.log("in the PostsController, $scope.post is: ", $scope.post);
+
+  // so we know that posts.posts contains the posts, at least.
+  console.log("in the PostsController, posts.posts is: ", posts.posts);
+
+  console.log("still in PostsController, posts.posts[$stateParams.id] is" , posts.posts[$stateParams.id]);
+
+  $scope.addComment = function() {
+
+    console.log("inside the addComment function!");
+
+    // Prevent against blank comment. also do this on model / db level..
+    if(!$scope.commentBody || $scope.commentBody === '') {
+      console.log("comment was blank");
+      return;
+    }
+
+    $scope.post.comments.push({
+      author: 'current_user', // this will change later
+      commentBody: $scope.commentBody,
+      rating: 0
+    });
+    $scope.commentBody = "";
+  };
+
+  $scope.incrementRating = function(comment) {
+    comment.rating += 1;
+  };
+
+  $scope.decrementRating = function(comment) {
+    comment.rating -= 1;
+  };
+
 }]);
 
 // factory for posts..
@@ -89,7 +121,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   });
 
   $stateProvider.state('posts', {
-    url: '/posts/{post_id}',
+    url: '/posts/:post_id',
     templateUrl: '/posts.html',
     controller: 'PostsController'
   });

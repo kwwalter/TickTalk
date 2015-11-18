@@ -17,3 +17,7 @@ body {
 input[type="submit"] {
   resize: none;
 }
+
+.comment {
+  border: 1px solid blue; 
+}
