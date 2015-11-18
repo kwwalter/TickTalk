@@ -6,7 +6,6 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
   // maybe can't use this with ui-router?
   // var controller = this;
 
-  // this.test = "testing!";
   $scope.posts = posts.posts;
 
   $scope.addPost = function() {
