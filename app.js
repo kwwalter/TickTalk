@@ -23,11 +23,31 @@ app.controller('MainController', ['$http', '$scope', function($http) {
   ];
 
   this.addPost = function() {
+
+    // Prevent against blank title and body entries.. maybe do this at the database / model levels instead?
+    if(!controller.title || controller.title === '') {
+      return;
+    } else if (!controller.body || controller.body === ''){
+      return;
+    }
+
+    var tagsArray = controller.tags.split(', ');
+
     controller.posts.push({
       title: controller.title,
+      body: controller.body,
+      tags: tagsArray,
       upvotes: 0
     });
-    controller.title = ""; 
-  }
+    controller.title = "";
+  };
+
+  this.incrementVote = function(post) {
+    post.upvotes += 1;
+  };
+
+  this.decrementVote = function(post) {
+    post.upvotes -= 1;
+  };
 
 }]);
