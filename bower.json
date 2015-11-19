@@ -1,0 +1,22 @@
+{
+  "name": "tick_talk",
+  "homepage": "https://github.com/kwwalter/TickTalk",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "authors": [
+    "kevin walter"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15"
+  }
+}
