@@ -1,4 +1,4 @@
-var app = angular.module('TickTalk', ['ui.router']);
+var app = angular.module('TickTalk', ['ui.router', 'templates']);
 
 // main controller for app..
 app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
@@ -105,15 +105,17 @@ app.factory('posts', [function(){
 // ui-router config stuff..
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
+  $urlRouterProvider.when('', '/');
+
   $stateProvider.state('home', {
     url: '/home',
-    templateUrl: '/home.html',
+    templateUrl: 'home/_home.html.erb',
     controller: 'MainController'
   });
 
   $stateProvider.state('posts', {
     url: '/posts/:post_id',
-    templateUrl: '/posts.html',
+    templateUrl: 'posts/_posts.html.erb',
     controller: 'PostsController'
   });
 
