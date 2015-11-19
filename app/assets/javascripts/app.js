@@ -19,13 +19,14 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
       return;
     }
 
-    var tagsArray = $scope.tags.split(/, \s?/);
-    console.log("tags array is: ", tagsArray);
+    // how to save in the model? maybe save as a string and split it to display? or just leave out completely for now.
+    // var tagsArray = $scope.tags.split(/, \s?/);
+    // console.log("tags array is: ", tagsArray);
 
     $scope.posts.push({
       title: $scope.title,
       body: $scope.body,
-      tags: tagsArray,
+      // tags: tagsArray,
       rating: 0,
       comments: [
         {
@@ -62,7 +63,7 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
 
 app.controller('PostsController', ['$http', '$scope', '$stateParams', 'posts', function($http, $scope, $stateParams, posts){
 
-  $scope.post = posts.posts[$stateParams.post_id];
+  $scope.post = posts.posts[$stateParams.id];
 
   $scope.addComment = function() {
 
@@ -112,7 +113,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   });
 
   $stateProvider.state('posts', {
-    url: '/posts/:post_id',
+    url: '/posts/:id',
     templateUrl: '/posts.html',
     controller: 'PostsController'
   });

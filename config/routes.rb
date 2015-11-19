@@ -2,6 +2,20 @@ Rails.application.routes.draw do
 
   root 'application#angular'
 
+  resources :posts do
+    resources :comments do
+      member do
+        put '/plusOne' => 'comments#plusOne'
+        put '/minusOne' => 'comments#minusOne'
+      end
+    end
+
+    member do
+      put '/plusOne' => 'posts#plusOne'
+      put '/minusOne' => 'posts#minusOne'
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

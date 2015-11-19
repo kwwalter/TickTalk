@@ -25,7 +25,7 @@
       <span class="vote" ng-click="decrementRating(post)"> - </span>
       <br><br>
       <p>{{post.body}}</p><br>
-      Tags: <span ng-repeat="tag in post.tags"> {{tag}} </span><br>
+      // Tags: <span ng-repeat="tag in post.tags"> {{tag}} </span><br>
       <a href="#/posts/{{$index}}">Comments</a>
       <hr>
     </div>
@@ -33,7 +33,7 @@
     <form ng-submit="addPost()">
       <input type="text" ng-model="title" placeholder="Title of your post" />
       <input type="textarea" ng-model="body" placeholder="Body of your post" />
-      <input type="text" ng-model="tags" placeholder="Comma-separated tags related to your post" />
+      // <input type="text" ng-model="tags" placeholder="Comma-separated tags related to your post" />
       <input type="submit" value="Post it!" />
     </form>
   </script>
