@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="TickTalk">
 <head>
   <meta charset="utf-8">
   <title>TickTalk</title>
@@ -13,9 +13,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="TickTalk">
-  <div>
-    <ui-view></ui-view>
+<body>
+  <div ui-view>
   </div>
 
   <script type="text/ng-template" id="/home.html">
