@@ -1,6 +1,9 @@
-angular.module('TickTalk').controller('PostsController', ['$http', '$scope', '$stateParams', 'posts', function($http, $scope, $stateParams, posts){
+angular.module('TickTalk').controller('PostsController', ['$http', '$scope', 'post', 'posts', function($http, $scope, post, posts){
 
-  $scope.post = posts.posts[$stateParams.post_id];
+  // don't need $stateParams anymore..
+  // $scope.post = posts.posts[$stateParams.id];
+
+  $scope.post = post;
 
   $scope.addComment = function() {
 
@@ -12,20 +15,32 @@ angular.module('TickTalk').controller('PostsController', ['$http', '$scope', '$s
       return;
     }
 
-    $scope.post.comments.push({
-      author: 'current_user', // this will change later
+    // not doing it this way anymore!
+    // $scope.post.comments.push({
+    //   author: 'current_user', // this will change later
+    //   commentBody: $scope.commentBody,
+    //   rating: 0
+    // });
+
+    // new way:
+    posts.addComment(post.id, {
       commentBody: $scope.commentBody,
-      rating: 0
+      author: 'current_user',
+    }).then(function(comment) {
+      $scope.post.comments.push(comment);
+    }, function(error){
+      console.log("error saving the comment: ", error);
     });
+
     $scope.commentBody = "";
   };
 
   $scope.incrementRating = function(comment) {
-    comment.rating += 1;
+    posts.incrementCommentRating(post, comment);
   };
 
   $scope.decrementRating = function(comment) {
-    comment.rating -= 1;
+    posts.decrementCommentRating(post, comment);
   };
 
 }]);
