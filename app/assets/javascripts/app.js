@@ -117,7 +117,7 @@ app.controller('PostsController', ['$http', '$scope', 'post', 'posts', function(
 }]);
 
 // factory for posts..
-app.factory('posts', ['$http', '$scope', function($http, $scope){
+app.factory('posts', ['$http', function($http){
 
   var postObj = {
     posts: []
