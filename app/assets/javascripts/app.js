@@ -70,7 +70,7 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
 }]);
 
 app.controller('PostsController', ['$http', '$scope', 'post', 'posts', function($http, $scope, post, posts){
-
+  console.log("WHAT THE FUCK HERES POST", post);
   // don't need $stateParams anymore..
   // $scope.post = posts.posts[$stateParams.id];
 
@@ -122,7 +122,6 @@ app.factory('posts', ['$http', function($http){
   var postObj = {
     posts: []
   };
-  // return postObj;
 
   this.getAllPosts = function() {
     // didn't work this way (with jbuilders). Trying another way..
@@ -176,7 +175,7 @@ app.factory('posts', ['$http', function($http){
     return $http.post('/posts/' + id + '/comments.json', comment);
   };
 
-  this.inrementCommentRating = function(post, comment) {
+  this.incrementCommentRating = function(post, comment) {
     return $http.put('/posts/' + post.id + '/comments/'+ comment.id + '/incrementCommentRating.json').then(function(data){
         comment.rating += 1;
       }, function(error){
@@ -191,6 +190,8 @@ app.factory('posts', ['$http', function($http){
           console.log("error decrementing the comment rating: ", error);
       });
   };
+
+  return postObj;
 
 }]);
 
