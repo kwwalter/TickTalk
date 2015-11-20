@@ -17,13 +17,13 @@ angular.module('TickTalk').controller('MainController', ['$http', '$scope', 'pos
       return;
     }
 
-    var tagsArray = $scope.tags.split(/, \s?/);
-    console.log("tags array is: ", tagsArray);
+    // var tagsArray = $scope.tags.split(/, \s?/);
+    // console.log("tags array is: ", tagsArray);
 
     $scope.posts.push({
       title: $scope.title,
       body: $scope.body,
-      tags: tagsArray,
+      // tags: tagsArray,
       rating: 0,
       comments: [
         {
@@ -45,7 +45,7 @@ angular.module('TickTalk').controller('MainController', ['$http', '$scope', 'pos
     });
     $scope.title = "";
     $scope.body = "";
-    $scope.tags = "";
+    // $scope.tags = "";
   };
 
   $scope.incrementRating = function(post) {
