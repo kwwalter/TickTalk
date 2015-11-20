@@ -1,22 +1,22 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    respond_with Post.all
   end
 
   def show
-    @post = Post.find_by_id(params[:id])
+    respond_with Post.find_by_id(params[:id])
   end
 
   def create
-    @post = Post.new(post_params)
+    post = Post.new(post_params)
 
-    if @post.save
-      render json: @post
+    if post.save
+      respond_with post
     else
       render json: {
         error: {
-          message: @post.errors.full_messages.to_sentence
+          message: post.errors.full_messages.to_sentence
         }
       }
     end
