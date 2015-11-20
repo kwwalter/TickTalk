@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require angular
 
-// NOTE: having some trouble getting this to work. on hold for now..
+// having some trouble getting this to work. on hold for now..
 // require angular-rails-templates
 
 //= require angular-ui-router

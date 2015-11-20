@@ -94,12 +94,21 @@ app.controller('PostsController', ['$http', '$scope', '$stateParams', 'posts', f
 }]);
 
 // factory for posts..
-app.factory('posts', [function(){
+app.factory('posts', ['$http', '$scope', function($http, $scope){
 
   var postObj = {
     posts: []
   };
-  return postObj;
+  // return postObj;
+
+  postObj.getAllPosts = function() {
+    $http.get('/posts').then(function(data) {
+      console.log("data inside of get /posts is: ", data);
+      // postObj.posts = data.posts;
+    }, function(error){
+      console.log("you had an error: ", error);
+    });
+  }
 
 }]);
 
@@ -109,7 +118,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   $stateProvider.state('home', {
     url: '/home',
     templateUrl: '/home.html',
-    controller: 'MainController'
+    controller: 'MainController',
+    resolve: {
+      postPromise: ['posts', function(posts){
+        return posts.getAllPosts();
+      }]
+    }
   });
 
   $stateProvider.state('posts', {

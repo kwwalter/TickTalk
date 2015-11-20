@@ -12,18 +12,24 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      flash[:message] = "Post succesfully saved!"
+      render json: @post
     else
-      flash[:message] = @post.errors.full_messages.to_sentence
+      render json: {
+        error: {
+          message: @post.errors.full_messages.to_sentence
+        }
+      }
     end
-
-    redirect_to root_path
   end
 
   def plusOne
+    post = Post.find_by_id(params[:id])
+    post[:rating] += 1
   end
 
   def minusOne
+    post = Post.find_by_id(params[:id])
+    post[:rating] -= 1
   end
 
   private

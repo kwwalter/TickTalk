@@ -1,4 +1,4 @@
-json.posts(@post) do |post|
+json.post(@post) do |post|
 
   json.id post.id
   json.title post.title
