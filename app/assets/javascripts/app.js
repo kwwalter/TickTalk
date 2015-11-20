@@ -101,12 +101,19 @@ app.factory('posts', ['$http', '$scope', function($http, $scope){
   };
   // return postObj;
 
-  postObj.getAllPosts = function() {
-    $http.get('/posts').then(function(data) {
-      console.log("data inside of get /posts is: ", data);
-      // postObj.posts = data.posts;
-    }, function(error){
-      console.log("you had an error: ", error);
+  this.getAllPosts = function() {
+    // didn't work this way (with jbuilders). Trying another way..
+
+    // $http.get('/posts').then(function(data) {
+    //   console.log("data inside of get /posts is: ", data);
+    //   // postObj.posts = data.posts;
+    // }, function(error){
+    //   console.log("you had an error: ", error);
+    // });
+
+    // second method:
+    return $http.get('/posts.json').success(function(data){
+        angular.copy(data, postObj.posts);
     });
   }
 
@@ -132,6 +139,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     controller: 'PostsController'
   });
 
-  $urlRouterProvider.otherwise('home');
+  // getting stuck in an infinite loop with this line..
+  $urlRouterProvider.otherwise('/home');
+
+  // found this workaround here: https://github.com/angular-ui/ui-router/issues/600
+  // but, now it doesn't render anything at all. UGH.
+  // $urlRouterProvider.otherwise(function($injector, $location) {
+  //   var $state = $injector.get("$state");
+  //   $state.go('home');
+  // });
 
 }]);
