@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   root 'application#angular'
 
-  resources :posts do
-    resources :comments do
+  resources :posts, only: [:create, :index, :show] do
+    resources :comments, only: [:create, :show] do
       member do
         put '/plusOne' => 'comments#plusOne'
         put '/minusOne' => 'comments#minusOne'

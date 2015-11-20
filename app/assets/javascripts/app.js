@@ -27,24 +27,24 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
       title: $scope.title,
       body: $scope.body,
       // tags: tagsArray,
-      rating: 0,
-      comments: [
-        {
-          author: 'Kevin',
-          commentBody: 'Hella tight brah!',
-          rating: 0
-        },
-        {
-          author: 'Rick',
-          commentBody: 'Wubba lubba dub dub!',
-          rating: 0
-        },
-        {
-          author: 'Tiny Rick',
-          commentBody: 'Grass...tastes bad!',
-          rating: 0
-        },
-      ]
+      rating: 0
+      // comments: [
+      //   {
+      //     author: 'Kevin',
+      //     commentBody: 'Hella tight brah!',
+      //     rating: 0
+      //   },
+      //   {
+      //     author: 'Rick',
+      //     commentBody: 'Wubba lubba dub dub!',
+      //     rating: 0
+      //   },
+      //   {
+      //     author: 'Tiny Rick',
+      //     commentBody: 'Grass...tastes bad!',
+      //     rating: 0
+      //   },
+      // ]
     });
     $scope.title = "";
     $scope.body = "";
