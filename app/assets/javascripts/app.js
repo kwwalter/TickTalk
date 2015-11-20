@@ -197,6 +197,9 @@ app.factory('posts', ['$http', '$scope', function($http, $scope){
 // ui-router config stuff..
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
+  // getting stuck in an infinite loop with this line..
+  $urlRouterProvider.otherwise('/home');
+
   $stateProvider.state('home', {
     url: '/home',
     templateUrl: '/home.html',
@@ -218,9 +221,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       }]
     }
   });
-
-  // getting stuck in an infinite loop with this line..
-  $urlRouterProvider.otherwise('/home');
 
   // found this workaround here: https://github.com/angular-ui/ui-router/issues/600
   // but, now it doesn't render anything at all. UGH.
