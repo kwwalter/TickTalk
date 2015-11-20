@@ -205,9 +205,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     templateUrl: '/home.html',
     controller: 'MainController',
     resolve: {
-      postPromise: ['posts', function(posts){
-        return posts.getAllPosts();
-      }]
+      // postPromise: ['posts', function(posts){
+      //   return posts.getAllPosts();
+      // }]
     }
   });
 
@@ -216,9 +216,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     templateUrl: '/posts.html',
     controller: 'PostsController',
     resolve: {
-      post: ['$stateParams', 'posts', function($stateParams, posts) {
-        return posts.get($stateParams.id);
-      }]
+      // post: ['$stateParams', 'posts', function($stateParams, posts) {
+      //   return posts.get($stateParams.id);
+      // }]
     }
   });
 

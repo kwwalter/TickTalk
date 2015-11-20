@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require angular
 
 // having some trouble getting this to work. on hold for now..
