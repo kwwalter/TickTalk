@@ -3,31 +3,30 @@ var app = angular.module('TickTalk', ['ngRoute']);
 // main controller for app..
 app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
 
-  // maybe can't use this with ui-router?
-  // var controller = this;
+  var controller = this;
 
-  $scope.posts = posts.posts;
+  this.posts = posts.posts;
 
-  $scope.addPost = function() {
+  this.addPost = function() {
 
     // Prevent against blank title and body entries.. maybe do this at the database / model levels instead? Once rails is set up..
-    if(!$scope.title || $scope.title === '') {
+    if(!controller.title || controller.title === '') {
       console.log("title was blank");
       return;
-    } else if (!$scope.body || $scope.body === ''){
+    } else if (!controller.body || controller.body === ''){
       console.log("body was blank");
       return;
     }
 
     // how to save in the model? maybe save as a string and split it to display? or just leave out completely for now.
-    // var tagsArray = $scope.tags.split(/, \s?/);
+    // var tagsArray = controller.tags.split(/, \s?/);
     // console.log("tags array is: ", tagsArray);
 
     // won't be using this code now that we'll be saving to the database..
 
-    // $scope.posts.push({
-    //   title: $scope.title,
-    //   body: $scope.body,
+    // controller.posts.push({
+    //   title: controller.title,
+    //   body: controller.body,
     //   // tags: tagsArray,
     //   rating: 0
     //   // comments: [
@@ -50,67 +49,69 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
     // });
 
     posts.create({
-      title: $scope.title,
-      body: $scope.body
+      title: controller.title,
+      body: controller.body
     });
 
-    $scope.title = "";
-    $scope.body = "";
-    // $scope.tags = "";
+    controller.title = "";
+    controller.body = "";
+    // controller.tags = "";
   };
 
-  $scope.incrementRating = function(post) {
+  this.incrementRating = function(post) {
     posts.incrementRating(post);
   };
 
-  $scope.decrementRating = function(post) {
+  this.decrementRating = function(post) {
     posts.decrementRating(post);
   };
 
 }]);
 
-app.controller('PostsController', ['$http', '$scope', 'post', 'posts', function($http, $scope, post, posts){
-  console.log("WHAT THE FUCK HERES POST", post);
-  // don't need $stateParams anymore..
-  // $scope.post = posts.posts[$stateParams.id];
+app.controller('PostsController', ['$http', '$scope', '$routeParams', 'posts', function($http, $scope, $routeParams, posts){
 
-  $scope.post = post;
+  var controller = this;
 
-  $scope.addComment = function() {
+  // not passing in the specific object anymore.. going to go through the posts factory
+  // this.post = post;
+
+  this.post = posts.posts[$routeParams.id];
+
+  this.addComment = function() {
 
     console.log("inside the addComment function!");
 
     // Prevent against blank comment. also do this on model / db level..
-    if(!$scope.commentBody || $scope.commentBody === '') {
+    if(!controller.commentBody || controller.commentBody === '') {
       console.log("comment was blank");
       return;
     }
 
     // not doing it this way anymore!
-    // $scope.post.comments.push({
+    // controller.post.comments.push({
     //   author: 'current_user', // this will change later
-    //   commentBody: $scope.commentBody,
+    //   commentBody: controller.commentBody,
     //   rating: 0
     // });
 
     // new way:
     posts.addComment(post.id, {
-      commentBody: $scope.commentBody,
+      commentBody: controller.commentBody,
       author: 'current_user',
     }).then(function(comment) {
-      $scope.post.comments.push(comment);
+      controller.post.comments.push(comment);
     }, function(error){
       console.log("error saving the comment: ", error);
     });
 
-    $scope.commentBody = "";
+    controller.commentBody = "";
   };
 
-  $scope.incrementRating = function(comment) {
+  this.incrementRating = function(comment) {
     posts.incrementCommentRating(post, comment);
   };
 
-  $scope.decrementRating = function(comment) {
+  this.decrementRating = function(comment) {
     posts.decrementCommentRating(post, comment);
   };
 
@@ -195,7 +196,26 @@ app.factory('posts', ['$http', function($http){
 
 }]);
 
-// ui-router config stuff..
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode({ enabled: true });
+
+  $routeProvider.
+  when('/home', {
+    templateUrl: 'app/views/layouts/home.html',
+    controller: 'MainController',
+    controllerAs: 'mainCtrl'
+  }).
+  when('/posts/:id', {
+    templateUrl: 'app/views/layouts/posts.html',
+    controller: 'PostsController',
+    controllerAs: 'postsCtrl'
+  }).
+  otherwise({
+    redirectTo: '/'
+  });
+}]);
+
+// ui-router config stuff.. commenting out for now
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
   // getting stuck in an infinite loop with this line..
