@@ -1,4 +1,4 @@
-var app = angular.module('TickTalk', ['ui.router']);
+var app = angular.module('TickTalk', ['ngRoute']);
 
 // main controller for app..
 app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
