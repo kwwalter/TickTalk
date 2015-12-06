@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+h1 {
+  color: blue;
+}
+
 body {
   font-size: 1rem;
 }
@@ -19,5 +23,5 @@ input[type="submit"] {
 }
 
 .comment {
-  border: 1px solid blue; 
+  border: 1px solid blue;
 }

@@ -1,3 +1,5 @@
+alert('testing!');
+
 var app = angular.module('TickTalk', ['ngRoute']);
 
 // main controller for app..
@@ -200,7 +202,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   $locationProvider.html5Mode({ enabled: true });
 
   $routeProvider.
-  when('/home', {
+  when('/', {
     templateUrl: 'app/views/layouts/home.html',
     controller: 'MainController',
     controllerAs: 'mainCtrl'
@@ -216,38 +218,38 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 // ui-router config stuff.. commenting out for now
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-
-  // getting stuck in an infinite loop with this line..
-  $urlRouterProvider.otherwise('/home');
-
-  $stateProvider.state('home', {
-    url: '/home',
-    templateUrl: '/home.html',
-    controller: 'MainController',
-    resolve: {
-      // postPromise: ['posts', function(posts){
-      //   return posts.getAllPosts();
-      // }]
-    }
-  });
-
-  $stateProvider.state('posts', {
-    url: '/posts/:id',
-    templateUrl: '/posts.html',
-    controller: 'PostsController',
-    resolve: {
-      // post: ['$stateParams', 'posts', function($stateParams, posts) {
-      //   return posts.get($stateParams.id);
-      // }]
-    }
-  });
-
-  // found this workaround here: https://github.com/angular-ui/ui-router/issues/600
-  // but, now it doesn't render anything at all. UGH.
-  // $urlRouterProvider.otherwise(function($injector, $location) {
-  //   var $state = $injector.get("$state");
-  //   $state.go('home');
-  // });
-
-}]);
+// app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+//
+//   // getting stuck in an infinite loop with this line..
+//   $urlRouterProvider.otherwise('/home');
+//
+//   $stateProvider.state('home', {
+//     url: '/home',
+//     templateUrl: '/home.html',
+//     controller: 'MainController',
+//     resolve: {
+//       // postPromise: ['posts', function(posts){
+//       //   return posts.getAllPosts();
+//       // }]
+//     }
+//   });
+//
+//   $stateProvider.state('posts', {
+//     url: '/posts/:id',
+//     templateUrl: '/posts.html',
+//     controller: 'PostsController',
+//     resolve: {
+//       // post: ['$stateParams', 'posts', function($stateParams, posts) {
+//       //   return posts.get($stateParams.id);
+//       // }]
+//     }
+//   });
+//
+//   // found this workaround here: https://github.com/angular-ui/ui-router/issues/600
+//   // but, now it doesn't render anything at all. UGH.
+//   // $urlRouterProvider.otherwise(function($injector, $location) {
+//   //   var $state = $injector.get("$state");
+//   //   $state.go('home');
+//   // });
+//
+// }]);
