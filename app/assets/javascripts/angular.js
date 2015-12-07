@@ -201,12 +201,12 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
   $routeProvider.
   when('/', {
-    templateUrl: '/assets/javascripts/templates/home.html',
+    templateUrl: 'templates/home.html',
     controller: 'MainController',
     controllerAs: 'mainCtrl'
   }).
   when('/posts/:id', {
-    templateUrl: '/assets/javascripts/templates/posts.html',
+    templateUrl: 'templates/posts.html',
     controller: 'PostsController',
     controllerAs: 'postsCtrl'
   }).
