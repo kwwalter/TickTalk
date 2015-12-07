@@ -23,31 +23,29 @@ app.controller('MainController', ['$http', '$scope', 'postsFactory', function($h
     // var tagsArray = controller.tags.split(/, \s?/);
     // console.log("tags array is: ", tagsArray);
 
-    // won't be using this code now that we'll be saving to the database..
-
-    // controller.posts.push({
-    //   title: controller.title,
-    //   body: controller.body,
-    //   // tags: tagsArray,
-    //   rating: 0
-    //   // comments: [
-    //   //   {
-    //   //     author: 'Kevin',
-    //   //     commentBody: 'Hella tight brah!',
-    //   //     rating: 0
-    //   //   },
-    //   //   {
-    //   //     author: 'Rick',
-    //   //     commentBody: 'Wubba lubba dub dub!',
-    //   //     rating: 0
-    //   //   },
-    //   //   {
-    //   //     author: 'Tiny Rick',
-    //   //     commentBody: 'Grass...tastes bad!',
-    //   //     rating: 0
-    //   //   },
-    //   // ]
-    // });
+    controller.posts.push({
+      title: controller.title,
+      body: controller.body,
+      // tags: tagsArray,
+      rating: 0
+      // comments: [
+      //   {
+      //     author: 'Kevin',
+      //     commentBody: 'Hella tight brah!',
+      //     rating: 0
+      //   },
+      //   {
+      //     author: 'Rick',
+      //     commentBody: 'Wubba lubba dub dub!',
+      //     rating: 0
+      //   },
+      //   {
+      //     author: 'Tiny Rick',
+      //     commentBody: 'Grass...tastes bad!',
+      //     rating: 0
+      //   },
+      // ]
+    });
 
     postsFactory.create({
       title: controller.title,
@@ -60,6 +58,7 @@ app.controller('MainController', ['$http', '$scope', 'postsFactory', function($h
   };
 
   this.incrementRating = function(post) {
+    console.log("inside incrementRating, post is: ", post);
     postsFactory.incrementRating(post);
   };
 
@@ -108,11 +107,11 @@ app.controller('PostsController', ['$http', '$scope', '$routeParams', 'postsFact
     controller.commentBody = "";
   };
 
-  this.incrementRating = function(comment) {
+  this.incrementCommentRating = function(comment) {
     postsFactory.incrementCommentRating(post, comment);
   };
 
-  this.decrementRating = function(comment) {
+  this.decrementCommentRating = function(comment) {
     postsFactory.decrementCommentRating(post, comment);
   };
 
