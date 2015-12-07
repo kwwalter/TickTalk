@@ -125,7 +125,7 @@ app.factory('postsFactory', ['$http', function($http){
     posts: []
   };
 
-  this.getAllPosts = function() {
+  postObj.getAllPosts = function() {
     // didn't work this way (with jbuilders). Trying another way..
     // $http.get('/posts').then(function(data) {
     //   console.log("data inside of get /posts is: ", data);
@@ -141,7 +141,7 @@ app.factory('postsFactory', ['$http', function($http){
     });
   }
 
-  this.create = function(post) {
+  postObj.create = function(post) {
     return $http.post('/posts.json', post).then(function(data){
       postObj.posts.push(data);
     }, function(error){
@@ -149,7 +149,7 @@ app.factory('postsFactory', ['$http', function($http){
     });
   };
 
-  this.incrementRating = function(post) {
+  postObj.incrementRating = function(post) {
   return $http.put('/posts/' + post.id + '/incrementRating.json').then(function(data){
       post.rating += 1;
     }, function(error){
@@ -157,7 +157,7 @@ app.factory('postsFactory', ['$http', function($http){
     });
   };
 
-  this.decrementRating = function(post) {
+  postObj.decrementRating = function(post) {
   return $http.put('/posts/' + post.id + '/decrementRating.json').then(function(data){
       post.rating -= 1;
     }, function(error){
@@ -165,7 +165,7 @@ app.factory('postsFactory', ['$http', function($http){
     });
   };
 
-  this.get = function(id) {
+  postObj.get = function(id) {
     return $http.get('/posts/' + id + '.json').then(function(res){
       return res.data;
     }, function(error){
@@ -173,11 +173,11 @@ app.factory('postsFactory', ['$http', function($http){
     });
   };
 
-  this.addComment = function(id, comment) {
+  postObj.addComment = function(id, comment) {
     return $http.post('/posts/' + id + '/comments.json', comment);
   };
 
-  this.incrementCommentRating = function(post, comment) {
+  postObj.incrementCommentRating = function(post, comment) {
     return $http.put('/posts/' + post.id + '/comments/'+ comment.id + '/incrementCommentRating.json').then(function(data){
         comment.rating += 1;
       }, function(error){
@@ -185,7 +185,7 @@ app.factory('postsFactory', ['$http', function($http){
       });
   };
 
-  this.decrementCommentRating = function(post, comment) {
+  postObj.decrementCommentRating = function(post, comment) {
     return $http.put('/posts/' + post.id + '/comments/'+ comment.id + '/decrementCommentRating.json').then(function(data){
         comment.rating -= 1;
       }, function(error){
