@@ -1,4 +1,4 @@
-var app = angular.module('TickTalk', ['ngRoute']);
+var app = angular.module('TickTalk', ['ngRoute', 'templates']);
 
 // main controller for app..
 app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
@@ -201,12 +201,12 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
   $routeProvider.
   when('/', {
-    templateUrl: 'app/views/layouts/home.html',
+    templateUrl: '/assets/javascripts/templates/home.html',
     controller: 'MainController',
     controllerAs: 'mainCtrl'
   }).
   when('/posts/:id', {
-    templateUrl: 'app/views/layouts/posts.html',
+    templateUrl: '/assets/javascripts/templates/posts.html',
     controller: 'PostsController',
     controllerAs: 'postsCtrl'
   }).

@@ -13,8 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
+//= require angular-rails-templates
+//
+// Templates in app/assets/javascript/templates
+//= require_tree ./templates
 
-// having some trouble getting this to work. on hold for now..
-// require angular-rails-templates
-
-//= require_tree .
+// require_tree .
