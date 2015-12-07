@@ -1,11 +1,12 @@
 var app = angular.module('TickTalk', ['ngRoute', 'templates']);
 
 // main controller for app..
-app.controller('MainController', ['$http', '$scope', 'posts', function($http, $scope, posts) {
+app.controller('MainController', ['$http', '$scope', 'postsFactory', function($http, $scope, postsFactory) {
 
   var controller = this;
 
-  this.posts = posts.posts;
+  // needed?
+  this.posts = postsFactory.posts;
 
   this.addPost = function() {
 
@@ -48,7 +49,7 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
     //   // ]
     // });
 
-    posts.create({
+    postsFactory.create({
       title: controller.title,
       body: controller.body
     });
@@ -59,23 +60,23 @@ app.controller('MainController', ['$http', '$scope', 'posts', function($http, $s
   };
 
   this.incrementRating = function(post) {
-    posts.incrementRating(post);
+    postsFactory.incrementRating(post);
   };
 
   this.decrementRating = function(post) {
-    posts.decrementRating(post);
+    postsFactory.decrementRating(post);
   };
 
 }]);
 
-app.controller('PostsController', ['$http', '$scope', '$routeParams', 'posts', function($http, $scope, $routeParams, posts){
+app.controller('PostsController', ['$http', '$scope', '$routeParams', 'postsFactory', function($http, $scope, $routeParams, postsFactory){
 
   var controller = this;
 
   // not passing in the specific object anymore.. going to go through the posts factory
   // this.post = post;
 
-  this.post = posts.posts[$routeParams.id];
+  this.post = postsFactory.posts[$routeParams.id];
 
   this.addComment = function() {
 
@@ -108,17 +109,17 @@ app.controller('PostsController', ['$http', '$scope', '$routeParams', 'posts', f
   };
 
   this.incrementRating = function(comment) {
-    posts.incrementCommentRating(post, comment);
+    postsFactory.incrementCommentRating(post, comment);
   };
 
   this.decrementRating = function(comment) {
-    posts.decrementCommentRating(post, comment);
+    postsFactory.decrementCommentRating(post, comment);
   };
 
 }]);
 
 // factory for posts..
-app.factory('posts', ['$http', function($http){
+app.factory('postsFactory', ['$http', function($http){
 
   var postObj = {
     posts: []
