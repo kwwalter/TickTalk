@@ -17,5 +17,4 @@
 // having some trouble getting this to work. on hold for now..
 // require angular-rails-templates
 
-//= require angular-ui-router
 //= require_tree .

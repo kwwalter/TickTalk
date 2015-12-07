@@ -1,5 +1,3 @@
-alert('testing!');
-
 var app = angular.module('TickTalk', ['ngRoute']);
 
 // main controller for app..

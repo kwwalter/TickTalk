@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>TickTalk</title>
-  <link rel="stylesheet" ng-href="/Users/kevinwalter/src/unit_04_projects/tick_talk/app/assets/stylesheets/{{styles.css}}" charset="utf-8">
+  <!-- <link rel="stylesheet" ng-href="/Users/kevinwalter/src/unit_04_projects/tick_talk/app/assets/stylesheets/{{styles.css}}" charset="utf-8"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
   <script src="https://code.angularjs.org/1.4.8/angular-route.min.js"></script>
-  <script ng-src="{{/Users/kevinwalter/src/unit_04_projects/tick_talk/app/assets/javascripts/app.js}}"></script>
+  <!-- <script src="/Users/kevinwalter/src/unit_04_projects/tick_talk/app/assets/javascripts/app.js"></script> -->
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
@@ -16,5 +16,6 @@
   <h1>TickTalk!</h1>
 
   <div ng-view></div>
+    <%= javascript_include_tag 'angular' %>
 </body>
 </html>
